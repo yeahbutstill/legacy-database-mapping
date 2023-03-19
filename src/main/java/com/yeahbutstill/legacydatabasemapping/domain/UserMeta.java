@@ -1,6 +1,7 @@
 package com.yeahbutstill.legacydatabasemapping.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "wp_usermeta")
@@ -14,6 +15,7 @@ public class UserMeta {
     @Column(name = "user_id")
     private Long userId;
 
+    @Size(max = 255)
     @Column(name = "meta_key")
     private String metaKey;
 
