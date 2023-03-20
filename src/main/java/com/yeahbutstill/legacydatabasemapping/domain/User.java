@@ -8,9 +8,14 @@ import lombok.Data;
 import org.hibernate.validator.constraints.URL;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
-@Table(name = "wp_users")
+@Table(name = "wp_users", indexes = {
+        @Index(name = "user_login_key", columnList = "user_login"),
+        @Index(name = "user_nicename", columnList = "user_nicename"),
+        @Index(name = "user_email", columnList = "user_email")
+})
 @Data
 public class User {
 
@@ -63,5 +68,12 @@ public class User {
     @Column(name = "display_name")
     @Basic(optional = false)
     private String displayName;
+
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private Set<UserMeta> userMetaSet;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Comment> comments;
 
 }
